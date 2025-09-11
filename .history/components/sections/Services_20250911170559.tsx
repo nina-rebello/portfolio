@@ -45,7 +45,7 @@ export default function Services() {
         <h2 className="text-3xl sm:text-4xl font-extrabold mb-6">Services</h2>
         <p className="max-w-2xl mx-auto mb-12 text-gray-700">
           Lorem ipsum dolor sit amet consectetur. Mollis erat duis aliquam
-          mauris est risus lectus. Phasellus consequat urna tellu.
+          mauris est risus lectus. Phasellus consequat urna tellus.
         </p>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
