@@ -16,7 +16,7 @@ export default function Projects() {
           alt=""
           width={860}
           height={860}
-          className="absolute -top-117 right-230 w-[860px] opacity-70"
+          className="absolute -top-[117px] right-[-230px] w-[860px] opacity-70"
           priority
         />
         <Image
