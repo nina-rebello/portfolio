@@ -54,35 +54,41 @@ export default function Services() {
       </div>
 
       {/* === grid de cards === */}
-    <div className="relative z-10 container-hero py-16">
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((s) => (
-          <div
-            key={s.title}
-            className="rounded-2xl p-8 backdrop-blur-md bg-white/40 
-                      border border-black/10 shadow-[0_8px_24px_rgba(0,0,0,0.08)]
-                      transition hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)]"
-          >
-            <div className="flex flex-col items-start text-left">
-              <Image
-                src={s.icon}
-                alt={s.title}
-                width={50}
-                height={50}
-                className="mb-4 opacity-90"
-              />
-              <h3 className="font-semibold text-2xl mb-3">{s.title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{s.desc}</p>
-              {s.title === "Web Design" && (
-                <p className="mt-4 text-xs text-gray-500">
-                  Em parceria com Luana Rebello
-                </p>
-              )}
-            </div>
-          </div>
-        ))}
+<div className="relative z-10 container-hero py-16">
+  <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    {services.map((s) => (
+      <div
+        key={s.title}
+        className="flex items-start gap-4 rounded-2xl p-8
+                   bg-white/50 backdrop-blur-md
+                   border border-black/10 shadow-md
+                   hover:shadow-lg transition"
+      >
+        {/* ícone à esquerda */}
+        <Image
+          src={s.icon}
+          alt={s.title}
+          width={50}
+          height={50}
+          className="shrink-0 mt-1"
+        />
+
+        {/* textos à direita */}
+        <div>
+          <h3 className="font-semibold text-xl mb-2">{s.title}</h3>
+          <p className="text-gray-600 text-sm leading-relaxed">{s.desc}</p>
+
+          {s.title === "Web Design" && (
+            <p className="mt-4 text-xs text-gray-500">
+              Em parceria com Luana Rebello
+            </p>
+          )}
+        </div>
       </div>
-    </div>
+    ))}
+  </div>
+</div>
+
     </section>
   );
 }

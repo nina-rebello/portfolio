@@ -28,7 +28,7 @@ export default function Services() {
           alt=""
           width={1400}
           height={1000}
-          className="absolute -top-10 left-200 w-[1000px] opacity-80"
+          className="absolute -top-80 left100 w-[1000px] opacity-80"
           priority
         />
         <Image
@@ -36,7 +36,7 @@ export default function Services() {
           alt=""
           width={760}
           height={760}
-          className="absolute top-44 right-230 w-[860px] opacity-70"
+          className="absolute top-4 right-250 w-[760px] opacity-70"
         />
       </div>
 
@@ -54,35 +54,37 @@ export default function Services() {
       </div>
 
       {/* === grid de cards === */}
-    <div className="relative z-10 container-hero py-16">
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((s) => (
-          <div
-            key={s.title}
-            className="rounded-2xl p-8 backdrop-blur-md bg-white/40 
-                      border border-black/10 shadow-[0_8px_24px_rgba(0,0,0,0.08)]
-                      transition hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)]"
-          >
-            <div className="flex flex-col items-start text-left">
-              <Image
-                src={s.icon}
-                alt={s.title}
-                width={50}
-                height={50}
-                className="mb-4 opacity-90"
-              />
-              <h3 className="font-semibold text-2xl mb-3">{s.title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{s.desc}</p>
-              {s.title === "Web Design" && (
-                <p className="mt-4 text-xs text-gray-500">
-                  Em parceria com Luana Rebello
-                </p>
-              )}
+      <div className="relative z-10 container-hero py-16">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((s) => (
+            <div
+              key={s.title}
+              className="rounded-[16px] p-8 bg-white/55 backdrop-blur-md
+                         ring-1 ring-white/30 shadow-[0_10px_30px_rgba(0,0,0,0.08)]
+                         transition hover:shadow-[0_16px_40px_rgba(0,0,0,0.12)]"
+            >
+              <div className="flex items-start gap-4">
+                <Image
+                  src={s.icon}
+                  alt={s.title}
+                  width={42}
+                  height={42}
+                  className="mt-1 shrink-0"
+                />
+                <div>
+                  <h3 className="font-semibold text-2xl mb-2">{s.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{s.desc}</p>
+                  {s.title === "Web Design" && (
+                    <p className="mt-6 text-xs text-gray-500">
+                      Em parceria com Luana Rebello
+                    </p>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
     </section>
   );
 }
