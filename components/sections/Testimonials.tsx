@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 type Testimonial = {
   id: string;
@@ -134,39 +135,61 @@ export default function Testimonials() {
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         {/* Heading */}
         <div className="text-center">
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+          <motion.h2
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="text-3xl sm:text-4xl font-extrabold tracking-tight"
+          >
             Testimonials That
-          </h2>
-          <h3 className="mt-1 text-3xl sm:text-5xl font-bold tracking-tight">
-            Speak to <span className="text-[var(--brand,#8bd5e3)]">My Results</span>
-          </h3>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-600">
+          </motion.h2>
+
+          <motion.h3
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-1 text-3xl sm:text-5xl font-bold tracking-tight"
+          >
+            Speak to{" "}
+            <span style={{ color: "var(--brand)" }}>My Results</span>
+          </motion.h3>
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mx-auto mt-4 max-w-2xl text-slate-600"
+          >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed congue interdum
             ligula a dignissim. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             Sed lobortis orci elementum egestas lobortis.
-          </p>
+          </motion.p>
         </div>
-
-  
 
         {/* Track */}
         <div className="relative mt-10">
-          
-
           {/* scroller */}
           <div
             ref={trackRef}
-            className="no-scrollbar relative -mx-58 flex snap-x snap-mandatory scroll-pl-4 gap-6 overflow-x-auto px-4 py-2"
+            className="overflow-hidden no-scrollbar relative -mx-58 flex snap-x snap-mandatory scroll-pl-4 gap-6 overflow-x-auto px-4 py-2"
           >
             {DATA.map((t, i) => (
-              <div
+              <motion.div
                 key={t.id}
                 data-card="t"
-                className={`group relative w-[84%] min-w-[84%] max-w-[84%] snap-center rounded-2xl bg-white ring-1 ring-slate-200 transition-transform md:w-[560px] md:min-w-[560px] md:max-w-[560px] ${i === active ? "translate-y-0" : "translate-y-1"}`}
+                initial={{ opacity: 0, y: 24, rotateX: -6, scale: 0.98 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: i * 0.06, ease: [0.2, 0.8, 0.2, 1] }}
+                whileHover={{ y: -2, rotateX: 0.5, rotateY: -0.5, scale: 1.01 }}
+                className={`overflow-hidden t-card group relative w-[84%] min-w-[84%] max-w-[84%] snap-center rounded-2xl bg-white ring-1 ring-slate-200 transition-transform md:w-[560px] md:min-w-[560px] md:max-w-[560px] ${i === active ? "translate-y-0" : "translate-y-1"}`}
               >
                 {/* quote mark */}
                 <div className="pointer-events-none absolute right-6 top-6 opacity-30">
-                  <svg viewBox="0 0 60 60" className="h-12 w-12">
+                  <svg viewBox="0 0 60 60" className="h-12 w-12 animate-quote">
                     <path
                       d="M18 12h10v12H18v12h10v12H6V36c0-6 2-12 6-18 4-6 10-6 12-6zm26 0h10v12H44v12h10v12H32V36c0-6 2-12 6-18 4-6 10-6 12-6z"
                       fill="#cbd5e1"
@@ -197,8 +220,8 @@ export default function Testimonials() {
                   </p>
                 </div>
 
-                {/* subtle hover glow */}
-              </div>
+                {/* subtle hover glow (pseudo-element via CSS) */}
+              </motion.div>
             ))}
           </div>
 
@@ -225,6 +248,54 @@ export default function Testimonials() {
       <style jsx global>{`
         .no-scrollbar { scrollbar-width: none; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        /* sweep highlight no título */
+        .sweep {
+          background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255,255,255,0.0) 30%,
+            currentColor 50%,
+            rgba(255,255,255,0.0) 70%,
+            transparent 100%);
+          background-size: 200% 100%;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          animation: sweep 2200ms cubic-bezier(0.22,1,0.36,1) 400ms both;
+        }
+        @keyframes sweep {
+          0%   { background-position: 200% 0; }
+          100% { background-position: 0% 0; }
+        }
+
+        /* flutuação sutil do quote */
+        .animate-quote {
+          animation: floatY 4s ease-in-out infinite;
+        }
+        @keyframes floatY {
+          0%   { transform: translateY(0) rotate(0deg); }
+          50%  { transform: translateY(-4px) rotate(-1deg); }
+          100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        /* glow ao redor do card (sem mudar layout) */
+        .t-card {
+          position: relative;
+          isolation: isolate;
+        }
+        .t-card::after {
+          content: "";
+          position: absolute;
+          inset: -1px;
+          z-index: -1;
+          border-radius: 1rem;
+          background: radial-gradient(60% 60% at 50% 0%,
+            rgba(139,213,227,0.30),
+            rgba(139,213,227,0.0) 60%);
+          opacity: 0;
+          transition: opacity 300ms ease;
+          pointer-events: none;
+        }
       `}</style>
     </section>
   );

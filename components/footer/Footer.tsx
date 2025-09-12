@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer id="contact" className="relative mt-20 scroll-mt-28">
     {/* Gradiente central acima */}
-    <div className="pointer-events-none absolute inset-x-0 -z-0 -top-70 left-1/2 -translate-x-1/2 w-[630px] h-[630px]">
+    <div className="pointer-events-none absolute inset-x-0 -z-0 -top-55 left-1/2 -translate-x-1/2 w-[680px] h-[570px]">
         <img
         src="/gradients/blur-gradient.png"
         alt=""
