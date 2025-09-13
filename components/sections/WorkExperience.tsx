@@ -11,23 +11,25 @@ type Item = {
 
 const ITEMS: Item[] = [
   {
-    company: "The Walt Disney & ESPN, Brasil",
-    period: "Sep 2016– July 2020",
-    role: "Técnica de Engenharia",
+    company: "The Walt Disney & ESPN, Brazil",
+    period: "April 2023– July 2024",
+    role: "Engineering and Technical Support",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacus nunc, posuere in justo vulputate, bibendum sodales.",
+      "Engineered Python automation and monitoring tooling that accelerated delivery and elevated live-broadcast performance.",
   },
   {
     company: "Snoonu, Qatar",
-    period: "Sep 2020– July 2023",
+    period: "Jan 2025– July 2025",
     role: "Full Stack Developer",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacus nunc, posuere in justo vulputate, bibendum sodales.",
+      "Project planning and execution with a strong focus on automation, integrations, and DevOps, ensuring availability, performance, and security of critical systems. \nCloud infrastructure management, continuous improvement initiatives, and strategic documentation for high-efficiency IT operations.",
   },
   {
     company: "Freelancer",
-    period: "Sep 2023",
+    period: "July 2025 – Present",
     role: "Full Stack Developer",
+    description:
+      "Creating responsive and user-friendly websites using modern web technologies. Collaborating with clients to understand their requirements and deliver tailored solutions that meet their business goals.",
   },
 ];
 
@@ -68,7 +70,7 @@ export default function WorkExperience() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="experience" className="relative overflow-hidden py-20">
+    <section ref={sectionRef} id="experience" className="relative overflow-hidden py-20 scroll-mt-28">
       <div className="container-hero">
         <h2 className="text-center text-3xl sm:text-4xl font-extrabold">
           My <span className="text-[var(--brand)]">Work Experience</span>

@@ -35,6 +35,7 @@ export default function Footer() {
             <ul className="space-y-3 text-slate-600">
               <li><a href="#about" className="hover:text-[var(--brand,#8bd5e3)] transition">About me</a></li>
               <li><a href="#services" className="hover:text-[var(--brand,#8bd5e3)] transition">Services</a></li>
+              <li><a href="#projects" className="hover:text-[var(--brand,#8bd5e3)] transition">Projects</a></li>
               <li><a href="#experience" className="hover:text-[var(--brand,#8bd5e3)] transition">Experience</a></li>
               <li><a href="#testimonials" className="hover:text-[var(--brand,#8bd5e3)] transition">Testimonials</a></li>
             </ul>
@@ -46,7 +47,7 @@ export default function Footer() {
             <ul className="space-y-3 text-slate-600">
               <li><a href="mailto:hello@yourdomain.com" className="hover:text-[var(--brand,#8bd5e3)] transition">E-mail</a></li>
               <li><a href="https://wa.me/5500000000000" target="_blank" rel="noreferrer" className="hover:text-[var(--brand,#8bd5e3)] transition">Whatsapp</a></li>
-              <li><a href="https://www.linkedin.com/in/username" target="_blank" rel="noreferrer" className="hover:text-[var(--brand,#8bd5e3)] transition">Linkedin</a></li>
+              <li><a href="https://www.linkedin.com/in/nina-rebello-francisco/" target="_blank" rel="noreferrer" className="hover:text-[var(--brand,#8bd5e3)] transition">Linkedin</a></li>
             </ul>
           </div>
         </div>
@@ -61,10 +62,10 @@ export default function Footer() {
               <a href="mailto:rebellonina@gmail.com" aria-label="Gmail" className="hover:opacity-80 transition">
                 <Image src="/icons/gmail.png" alt="Gmail" width={24} height={24} />
               </a>
-              <a href="https://www.linkedin.com/in/nina-rebello" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:opacity-80 transition">
+              <a href="https://www.linkedin.com/in/nina-rebello-francisco/" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:opacity-80 transition">
                 <Image src="/icons/linkedin.png" alt="LinkedIn" width={24} height={24} />
               </a>
-              <a href="https://youtube.com/@niarebs" target="_blank" rel="noreferrer" aria-label="YouTube" className="hover:opacity-80 transition">
+              <a href="https://youtube.com/@ninarebs" target="_blank" rel="noreferrer" aria-label="YouTube" className="hover:opacity-80 transition">
                 <Image src="/icons/youtube.png" alt="YouTube" width={24} height={24} />
               </a>
               <a href="https://wa.me/5511988004848" target="_blank" rel="noreferrer" aria-label="WhatsApp" className="hover:opacity-80 transition">

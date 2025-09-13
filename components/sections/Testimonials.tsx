@@ -16,28 +16,28 @@ type Testimonial = {
 const DATA: Testimonial[] = [
   {
     id: "t1",
-    name: "Jayesh Patil",
-    role: "CEO, Lirante",
-    avatar: "/avatars/jayesh.jpg",
+    name: "Bianca Rodrigues",
+    role: "Desenvolvedora de Software, The Walt Disney Company",
+    avatar: "/avatars/bianca.jpeg",
     rating: 5,
     text:
-      "Sed congue interdum ligula a dignissim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis orci elementum egestas lobortis.",
+      "Trabalhar com a Nina na área de engenharia da Disney tem sido uma experiência gratificante. Supervisionando alguns projetos dela, posso afirmar com confiança que ela é uma aprendiz excepcional. Ela se destaca por sua capacidade de aprender rapidamente, seu empenho nos estudos e sua criatividade notável. Além disso, ela é extremamente organizada e colabora de maneira exemplar com a equipe, contribuindo significativamente para o sucesso dos projetos. Sua qualidade técnica é complementada por seu bom humor contagiante, que torna o ambiente de trabalho mais agradável e produtivo.",
   },
   {
     id: "t2",
-    name: "Amira Khalid",
-    role: "Head of Product, Noon",
-    avatar: "/avatars/amira.jpg",
+    name: "Abolfazl Shirkavand",
+    role: "Head of Digital Innovation, Snoonu",
+    avatar: "/avatars/Abosh.jpeg",
     rating: 5,
     text:
-      "Trabalho impecável do início ao fim. Otimizou nossos fluxos e trouxe clareza ao roadmap. Recomendo sem pensar duas vezes.",
+      "I managed Nina at the very start of her career. Although she was young and without much experience, she showed great potential and a naturally bright, curious mind. She was disciplined, organized, and eager to learn; always listening carefully and applying feedback well. \nNina also had a strong creative sense, with good taste in design, ideation, and UI/UX. While she was still developing her professional skills, her attitude, openness, and creativity made her stand out. I believe she has the foundation to grow into an excellent professional in her field.",
   },
   {
     id: "t3",
-    name: "Lucas Prado",
-    role: "CTO, Cidvise",
-    avatar: "/avatars/lucas.jpg",
-    rating: 4.5,
+    name: "Carol Ghorayeb",
+    role: "Central Planning & Readiness Senior Manager, Supreme Committee",
+    avatar: "/avatars/Carol.jpeg",
+    rating: 5,
     text:
       "Entrega consistente, documentação excelente e olho clínico para design de sistemas. A parceria elevou nosso padrão.",
   },
@@ -131,7 +131,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section id="testimonials" className="relative py-20">
+    <section id="testimonials" className="relative py-28 scroll-mt-20">
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         {/* Heading */}
         <div className="text-center">
@@ -150,7 +150,7 @@ export default function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-1 text-3xl sm:text-5xl font-bold tracking-tight"
+            className="mt-1 text-3xl sm:text-4xl font-bold tracking-tight"
           >
             Speak to{" "}
             <span style={{ color: "var(--brand)" }}>My Results</span>
@@ -163,9 +163,7 @@ export default function Testimonials() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mx-auto mt-4 max-w-2xl text-slate-600"
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed congue interdum
-            ligula a dignissim. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Sed lobortis orci elementum egestas lobortis.
+            A small sample of recent collaborations—performance, accessibility, and maintainable code front and center.
           </motion.p>
         </div>
 
