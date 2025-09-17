@@ -18,6 +18,7 @@ export default function AboutMe() {
           About Me
         </h2>
         <p className="max-w-2xl mx-auto text-lg text-gray-300 leading-relaxed">
+          EDIT
           I’m a passionate website developer focused on building
           clean, responsive, and user-friendly websites.
           With strong attention to detail and a love for design,

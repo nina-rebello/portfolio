@@ -104,10 +104,10 @@ export default function Hero() {
             </motion.div>
             <div>
               <p className="font-semibold">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                Crafting digital experiences and empowering brands through web development.
               </p>
               <p className="text-[var(--muted)]">
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Criando experiências digitais e impulsionando marcas através do desenvolvimento web.
               </p>
             </div>
           </div>

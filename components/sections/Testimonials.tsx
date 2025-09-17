@@ -39,17 +39,17 @@ const DATA: Testimonial[] = [
     avatar: "/avatars/Carol.jpeg",
     rating: 5,
     text:
-      "Entrega consistente, documentação excelente e olho clínico para design de sistemas. A parceria elevou nosso padrão.",
+      "A Nina desenvolveu o website da minha empresa e entregou um trabalho perfeito. Desde a primeira reunião para entender o escopo, passando por desenvolvimento, testes e ajustes até a entrega final, ela foi sempre muito atenciosa e acertiva, além de paciente com as mudanças de última hora. O trabalho ficou lindo, e entregue no prazo e no budget. Obrigada Nina! ",
   },
-  {
-    id: "t4",
-    name: "Maha Al-Thani",
-    role: "Program Director, Expo",
-    avatar: "/avatars/maha.jpg",
-    rating: 5,
-    text:
-      "Execução rápida e com muita atenção aos detalhes visuais. A experiência final ficou elegante e performance ótima.",
-  },
+  // {
+  //   id: "t4",
+  //   name: "Maha Al-Thani",
+  //   role: "Program Director, Expo",
+  //   avatar: "/avatars/maha.jpg",
+  //   rating: 5,
+  //   text:
+  //     "Execução rápida e com muita atenção aos detalhes visuais. A experiência final ficou elegante e performance ótima.",
+  // },
 ];
 
 function Stars({ value }: { value: number }) {

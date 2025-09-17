@@ -14,7 +14,7 @@ const services = [
   {
     icon: "/icons/icons8-web-100.png",
     title: "Web Design",
-    desc: "In partnership with Luana Rebello, focused on elegant UI.",
+    desc: "Clean, creative, and user-focused interfaces that bring ideas to life.",
   },
 ];
 
@@ -45,8 +45,7 @@ export default function Services() {
         <div className="container-hero">
           <h2 className="text-3xl sm:text-4xl font-extrabold mb-6">Services</h2>
           <p className="max-w-3xl mx-auto text-gray-700">
-            Lorem ipsum dolor sit amet consectetur. Mollis erat duis aliquam
-            mauris est risus lectus. Phasellus consequat urna tellus
+            Building digital experiences that are clear, modern, effective, and tailored to connect people with brands in meaningful ways.
           </p>
         </div>
         {/* fade branco para transição suave */}
@@ -75,7 +74,7 @@ export default function Services() {
               <p className="text-gray-600 text-sm leading-relaxed">{s.desc}</p>
               {s.title === "Web Design" && (
                 <p className="mt-4 text-xs text-gray-500">
-                  Em parceria com Luana Rebello
+                  In partnership with Luana Rebello
                 </p>
               )}
             </div>

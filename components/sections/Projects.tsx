@@ -1,8 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useEffect, useRef, useState, Fragment} from "react";
+import { ChevronLeft, ChevronRight, GraduationCap, X } from "lucide-react";
+
+
+type Contributor = {
+  name: string;
+  url: string;
+};
 
 type Project = {
   id: string;
@@ -13,43 +19,120 @@ type Project = {
   description: string;
   tech?: string[];
   link?: string;
+  academic?: boolean;
+  contributors?: Contributor[]; 
+  repo?: string; 
 };
 
 const PROJECTS: Project[] = [
   {
     id: "1",
-    title: "SaaS Dashboard",
-    tag: "Web Dev",
-    cover: "/projects/p1.jpg",
-    images: ["/projects/p1.jpg", "/projects/p1b.jpg", "/projects/p1c.jpg"],
+    title: "Atelier of Experience",
+    tag: "Web Development",
+    cover: "/projects/p1a.png",
+    images: ["/projects/p1a.png", "/projects/p1b.png", "/projects/p1c.png", "/projects/p1d.png", "/projects/p1e.png"],
     description:
-      "Dashboard para produto SaaS com charts, dark mode e layout responsivo.",
-    tech: ["Next.js", "Recharts", "Tailwind"],
-    link: "#",
+      "Landing page para empresa do Qatar de consultoria para empresas, com design moderno e responsivo.",
+    tech: ["Next.js", "Typescript", "Tailwind", "Python"],
+    link: "https://atelierofexperience.com",
+    contributors: [
+    { name: "Luana Rebello", url: "https://www.linkedin.com/in/luanarebello/" },
+  ],
   },
   {
     id: "2",
-    title: "Portfolio Clean",
-    tag: "UI/UX",
-    cover: "/projects/p2.jpg",
-    images: ["/projects/p2.jpg", "/projects/p2b.jpg"],
+    title: "IT Asset Management",
+    tag: "Software Development",
+    cover: "/projects/p2a.jpeg",
+    images: ["/projects/p2a.jpeg", "/projects/p2b.jpeg", "/projects/p2c.jpeg"],
     description:
-      "Portfolio minimal com foco no conteúdo e micro-interações acessíveis.",
-    tech: ["Next.js", "Tailwind"],
-    link: "#",
+      "Automação de inventário de hardware e software para empresa de TI, integrando com APIs e automatizando ações repetitivas.",
+    tech: ["React.js", "Tailwind", "Python", "Django", "OpenAI API", "Pandadoc API"],
   },
   {
     id: "3",
-    title: "E-commerce UI",
-    tag: "Web Design",
-    cover: "/projects/p3.jpg",
-    images: ["/projects/p3.jpg", "/projects/p3b.jpg"],
+    title: "vMix Playlist",
+    tag: "Software Development",
+    cover: "/projects/p3a.jpeg",
+    images: ["/projects/p3a.jpeg"],
     description:
-      "Landing de e-commerce com foco em conversão, tipografia limpa e componentes reusáveis.",
-    tech: ["Next.js", "Framer Motion"],
-    link: "#",
+      "Aplicação desenvolvida para fazer integração com o vMix e criar listas de arquivos dentro do software",
+    tech: ["Python", "QtDesigner"],
+    contributors: [
+    { name: "Bianca Rodrigues", url: "https://www.linkedin.com/in/bia-rodrig/" },
+  ],
   },
-  // adicione mais projetos...
+  {
+    id: "4",
+    title: "InsightWise",
+    tag: "Software Development",
+    cover: "/projects/p4a.png",
+    images: ["/projects/p4a.png"],
+    description:
+      "O InsightWise é uma ferramenta de análise de produtividade desenvolvida para monitorar o uso dos softwares corporativos da Plusoft, proporcionando insights detalhados sobre a eficiência e o engajamento dos funcionários com as funcionalidades disponíveis. A solução visa otimizar o desempenho das equipes, gerando relatórios baseados em interações reais, como cliques, rolagens e períodos de inatividade.",
+    tech: ["Next.js", "Java", "Python", "Ollama API"],
+    academic: true,
+    contributors: [
+    { name: "Breno Santiago", url: "https://www.linkedin.com/in/breno-santiago-66b164227/" },
+    { name: "Felipe Guedes", url: "https://www.linkedin.com/in/felipeguedesgoncalves/" },
+    { name: "Luiz Felipe Soares", url: "https://www.linkedin.com/in/luizlucena97/" },
+    { name: "Vitória Maria de Camargo", url: "https://www.linkedin.com/in/camargovitoria/" },
+  ],
+    repo: "https://github.com/nina-rebello/InsightWise?tab=readme-ov-file",
+  },
+  {
+    id: "5",
+    title: "Hunzer",
+    tag: "Software Development",
+    cover: "/projects/p5a.png",
+    images: ["/projects/p5a.png", "/projects/p5b.png", "/projects/p5c.png", "/projects/p5d.png"],
+    description:
+      "Hunzer é uma plataforma gamificada que engaja pessoas no combate à fome com desafios diários, conteúdo educativo e registro de ações (apoiar pequenos produtores, reduzir desperdício). As ações geram pontos resgatáveis em eventos e lojas parceiras, fortalecendo comunidades e incentivando consumo sustentável de forma prática e mensurável.",
+    tech: ["Next.js", "Java", "Python"],
+    academic: true,
+    contributors: [
+    { name: "Camila Cunha", url: "https://www.linkedin.com/in/camila-cunha-336647266/" },
+    { name: "Guilherme Rodrigues", url: "https://www.linkedin.com/in/" },
+    { name: "Felipe Guedes", url: "https://www.linkedin.com/in/felipeguedesgoncalves/" },
+    { name: "Luiz Felipe Soares", url: "https://www.linkedin.com/in/luizlucena97/" },
+  ],
+  },
+  {
+    id: "6",
+    title: "BlueHope",
+    tag: "Software Development",
+    cover: "/projects/p6a.png",
+    images: ["/projects/p6a.png", "/projects/p6b.png", "/projects/p6c.png", "/projects/p6d.png"],
+    description:
+      "O BlueHope é uma plataforma inovadora dedicada a assegurar que as atividades humanas nos oceanos sejam ecologicamente sustentáveis, socialmente inclusivas e economicamente viáveis a longo prazo. Utilizando um sistema de desafios, incentivamos os usuários a realizar ações ambientais, recompensando-os com pontos que podem ser trocados por certificados e premiações. Nossa inteligência artificial valida a conclusão dos desafios, garantindo a autenticidade das ações realizadas. Nosso objetivo é melhorar a saúde dos oceanos e da vida marinha, promovendo práticas positivas e sustentáveis.",
+    tech: ["Next.js", "Tailwind", "Java", "Python", "JavaScript", "TypeScript", "C#"],
+    academic: true,
+    contributors: [
+    { name: "Breno Santiago", url: "https://www.linkedin.com/in/breno-santiago-66b164227/" },
+    { name: "Felipe Guedes", url: "https://www.linkedin.com/in/felipeguedesgoncalves/" },
+    { name: "Luiz Felipe Soares", url: "https://www.linkedin.com/in/luizlucena97/" },
+    { name: "Vitória Maria de Camargo", url: "https://www.linkedin.com/in/camargovitoria/" },
+  ],
+    repo: "https://github.com/Santlago/BlueHope?tab=readme-ov-file#documentação-da-api",
+  },
+  {
+    id: "7",
+    title: "GridHub",
+    tag: "Software Development",
+    cover: "/projects/p7a.png",
+    images: ["/projects/p7a.png"],
+    description:
+      "O GridHub é uma plataforma inovadora que conecta proprietários de microgrids com donos de imóveis, facilitando a implementação de soluções de energia sustentável através de um marketplace intuitivo para locação de espaços.",
+    tech: ["Next.js", "Tailwind", "Java", "Python", "JavaScript", "TypeScript", "C#"],
+    academic: true,
+    contributors: [
+    { name: "Breno Santiago", url: "https://www.linkedin.com/in/breno-santiago-66b164227/" },
+    { name: "Felipe Guedes", url: "https://www.linkedin.com/in/felipeguedesgoncalves/" },
+    { name: "Luiz Felipe Soares", url: "https://www.linkedin.com/in/luizlucena97/" },
+    { name: "Vitória Maria de Camargo", url: "https://www.linkedin.com/in/camargovitoria/" },
+  ],
+    repo: "https://github.com/Santlago/gridhub?tab=readme-ov-file",
+  },
 ];
 
 export default function Projects() {
@@ -57,6 +140,22 @@ export default function Projects() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<Project | null>(null);
   const [imgIdx, setImgIdx] = useState(0);
+  // mede a altura da coluna esquerda (galeria)
+  const leftColRef = useRef<HTMLDivElement>(null);
+  const [leftColH, setLeftColH] = useState<number | null>(null);
+
+  useEffect(() => {
+    const el = leftColRef.current;
+    if (!el) return;
+
+    const read = () => setLeftColH(el.getBoundingClientRect().height);
+    const ro = new ResizeObserver(read);
+    ro.observe(el);
+    read(); // primeira leitura
+
+    return () => ro.disconnect();
+  }, [open, active, imgIdx]);
+
 
   // carrossel
   const trackRef = useRef<HTMLDivElement>(null);
@@ -111,7 +210,7 @@ export default function Projects() {
       <div className="relative z-10 container-hero">
         <h2 className="text-center text-3xl sm:text-4xl font-extrabold">My Projects</h2>
         <p className="max-w-3xl mx-auto mt-4 text-center text-gray-700">
-          Alguns trabalhos recentes. Arraste para o lado ou use as setas.
+          Some recent works. Swipe sideways or use the arrows.
         </p>
 
         {/* carrossel */}
@@ -125,22 +224,22 @@ export default function Projects() {
               <article
                 key={p.id}
                 data-card
-                className="snap-start shrink-0 w-[280px] sm:w-[320px] rounded-[16px]
+                className="snap-start shrink-0 w-[285px] sm:w-[325px] rounded-[16px]
                           bg-white/70 backdrop-blur-md border border-black/10
                           transition-transform transform hover:scale-105 cursor-pointer"
                 onClick={() => openProject(p)}
               >
                 {/* wrapper interno mantém os cantos e conteúdos */}
                 <div className="overflow-hidden rounded-[16px]">
-                  <div className="relative aspect-[16/12] bg-gray-100">
+                  <div className="relative aspect-[16/12] bg-white flex items-center justify-center p-2">
                     <Image
                       src={p.cover}
                       alt={p.title}
                       fill
+                      className="object-contain"   // mostra a imagem inteira
                       sizes="(max-width: 640px) 320px, 360px"
-                      className="object-cover"
                     />
-                  </div>
+                </div>
                   <div className="p-4">
                     <span className="text-xs uppercase tracking-wide text-gray-500">{p.tag}</span>
                     <h3 className="text-lg font-semibold mt-1">{p.title}</h3>
@@ -193,17 +292,22 @@ export default function Projects() {
 
               <div className="grid gap-6 md:grid-cols-2">
                 {/* galeria esquerda */}
-                <div className="space-y-3">
-                  <div className="relative aspect-[16/11] rounded-xl overflow-hidden bg-gray-100">
+                <div className="space-y-3" ref={leftColRef}>
+                  <div className="relative rounded-xl overflow-hidden bg-white
+                                  flex items-center justify-center
+                                  w-full max-h-[520px]">  {/* altura máxima do viewport/modal */}
                     <Image
                       key={active.images[imgIdx]}
                       src={active.images[imgIdx]}
                       alt={`${active.title} image ${imgIdx + 1}`}
-                      fill
-                      className="object-cover"
-                      sizes="(min-width: 768px) 50vw, 100vw"
+                      width={1600}
+                      height={1200}
+                      className="w-full h-auto object-contain"  // <-- não corta
+                      sizes="(min-width: 868px) 50vw, 100vw"
+                      priority
                     />
                   </div>
+
                   <div className="flex gap-3 overflow-x-auto no-scrollbar">
                     {active.images.map((src, i) => (
                       <button
@@ -219,33 +323,68 @@ export default function Projects() {
                   </div>
                 </div>
 
+
                 {/* texto direita */}
-                <div className="flex flex-col">
-                  <div className="mb-2 text-xs uppercase tracking-wide text-gray-500">
-                    {active.tag}
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold">{active.title}</h3>
-                  <p className="mt-3 text-gray-700 leading-relaxed">{active.description}</p>
-                  {active.tech && (
-                    <ul className="mt-4 flex flex-wrap gap-2">
-                      {active.tech.map((t) => (
-                        <li key={t} className="text-xs rounded-full border border-black/10 px-3 py-1 bg-white/80">
-                          {t}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  {active.link && (
-                    <div className="mt-6">
-                      <a
-                        href={active.link}
-                        target="_blank"
-                        className="inline-flex items-center rounded-full px-4 py-2 bg-black text-white hover:bg-black/90"
-                      >
-                        Visit project
-                      </a>
+                <div
+                  className="flex flex-col md:pr-1 md:[scrollbar-gutter:stable]"
+                  style={{ ["--panelH" as any]: leftColH ? `${leftColH}px` : undefined }}
+                >
+                  <div className="md:max-h-[var(--panelH)] md:overflow-y-auto md:min-h-0">
+                    <div className="mb-2 text-xs uppercase tracking-wide text-gray-500">
+                      {active.tag}
                     </div>
-                  )}
+
+                    <h3 className="text-2xl sm:text-3xl font-extrabold">{active.title}</h3>
+                    <p className="mt-3 text-gray-700 leading-relaxed">{active.description}</p>
+
+                    {active.tech && (
+                      <ul className="mt-4 flex flex-wrap gap-2">
+                        {active.tech.map((t) => (
+                          <li key={t} className="text-xs rounded-full border border-black/10 px-3 py-1 bg-white/80">
+                            {t}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                    {active.academic ? (
+                      <div className="mt-6 flex items-center gap-2">
+                        <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold bg-black text-white">
+                          <GraduationCap className="h-4 w-4" />
+                          Academic Project
+                        </span>
+                        {active.repo && (
+                          <a href={active.repo} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full px-2 py-1" aria-label="Open GitHub repository">
+                            <Image src="/icons/github.png" alt="" width={22} height={22} className="opacity-80" />
+                          </a>
+                        )}
+                      </div>
+                    ) : active.link ? (
+                      <div className="mt-6 mb-16">
+                        <a href={active.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-full px-4 py-2 bg-black text-white hover:bg-black/90">
+                          Visit project
+                        </a>
+                      </div>
+                    ) : null}
+
+                    {active.contributors?.length ? (
+                      <div className="mt-4">
+                        <h4 className="text-xs uppercase tracking-wide text-gray-500 mb-2">Contributors</h4>
+                        <ul className="flex flex-wrap gap-2">
+                          {active.contributors.map((c) => (
+                            <li key={c.url}>
+                              <a href={c.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-black/10 px-3 py-1 bg-white/80 hover:bg-white">
+                                <Image src="/icons/linkedin.png" alt="" width={14} height={14} aria-hidden="true" />
+                                <span className="text-xs font-medium">{c.name}</span>
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+
+                    <div className="h-2 shrink-0" /> {/* respiro no fim */}
+                  </div>
                 </div>
               </div>
 
