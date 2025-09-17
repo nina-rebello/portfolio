@@ -224,7 +224,7 @@ export default function Projects() {
               <article
                 key={p.id}
                 data-card
-                className="snap-start shrink-0 w-[285px] sm:w-[325px] rounded-[16px]
+                className="snap-start shrink-0 w-[287px] sm:w-[327px] rounded-[16px]
                           bg-white/70 backdrop-blur-md border border-black/10
                           transition-transform transform hover:scale-105 cursor-pointer"
                 onClick={() => openProject(p)}
@@ -271,149 +271,172 @@ export default function Projects() {
       </div>
 
       {/* overlay / modal do projeto */}
-      {open && active && (
-        <div
-          className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm"
+{open && active && (
+  <div
+    className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm"
+    onClick={() => setOpen(false)}
+    role="dialog"
+    aria-modal="true"
+  >
+    <div
+      className="container-hero h-[100dvh] flex items-start md:items-center py-3"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div
+        className="
+          relative w-full mx-auto
+          rounded-2xl bg-white/95 backdrop-blur
+          p-3 sm:p-6 lg:p-8
+          border border-black/10 shadow-2xl
+
+          /* ===== tamanhos seguros ===== */
+          max-w-[96vw] md:max-w-[980px]
+          max-h-[calc(100dvh-24px)] md:max-h-[min(90vh,860px)]
+          overflow-y-auto
+        "
+      >
+        {/* botão fechar sempre visível no mobile */}
+        <button
           onClick={() => setOpen(false)}
+          aria-label="Close"
+          className="
+            fixed md:absolute
+            top-[max(12px,env(safe-area-inset-top))]
+            right-[max(12px,env(safe-area-inset-right))]
+            z-[60]
+            rounded-full p-3 bg-black/80 text-white hover:bg-black
+          "
         >
-          <div
-            className="container-hero h-full flex items-center"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="relative w-full rounded-2xl bg-white/95 backdrop-blur p-4 sm:p-6 lg:p-8 border border-black/10 shadow-2xl">
-              {/* fechar */}
-              <button
-                onClick={() => setOpen(false)}
-                aria-label="Close"
-                className="absolute top-3 right-3 rounded-full p-2 bg-black/80 text-white hover:bg-black"
-              >
-                <X size={18} />
-              </button>
+          <X size={22} />
+        </button>
 
-              <div className="grid gap-6 md:grid-cols-2">
-                {/* galeria esquerda */}
-                <div className="space-y-3" ref={leftColRef}>
-                  <div className="relative rounded-xl overflow-hidden bg-white
-                                  flex items-center justify-center
-                                  w-full max-h-[520px]">  {/* altura máxima do viewport/modal */}
-                    <Image
-                      key={active.images[imgIdx]}
-                      src={active.images[imgIdx]}
-                      alt={`${active.title} image ${imgIdx + 1}`}
-                      width={1600}
-                      height={1200}
-                      className="w-full h-auto object-contain"  // <-- não corta
-                      sizes="(min-width: 868px) 50vw, 100vw"
-                      priority
-                    />
-                  </div>
+        <div className="grid gap-6 md:grid-cols-2">
+          {/* galeria esquerda */}
+          <div className="space-y-3" ref={leftColRef}>
+            <div
+              className="
+                relative rounded-xl overflow-hidden bg-white
+                flex items-center justify-center w-full
+                /* limita a mídia no mobile para não empurrar o topo */
+                max-h-[52vh] sm:max-h-[520px]
+              "
+            >
+              <Image
+                key={active.images[imgIdx]}
+                src={active.images[imgIdx]}
+                alt={`${active.title} image ${imgIdx + 1}`}
+                width={1600}
+                height={1200}
+                className="w-full h-auto object-contain"
+                sizes="(min-width: 868px) 50vw, 100vw"
+                priority
+              />
+            </div>
 
-                  <div className="flex gap-3 overflow-x-auto no-scrollbar">
-                    {active.images.map((src, i) => (
-                      <button
-                        key={src}
-                        onClick={() => setImgIdx(i)}
-                        className={`relative h-16 w-24 rounded-lg overflow-hidden border
-                          ${i === imgIdx ? "border-black/60" : "border-black/10"}`}
-                        aria-label={`Imagem ${i + 1}`}
-                      >
-                        <Image src={src} alt="" fill className="object-cover" />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-
-                {/* texto direita */}
-                <div
-                  className="flex flex-col md:pr-1 md:[scrollbar-gutter:stable]"
-                  style={{ ["--panelH" as any]: leftColH ? `${leftColH}px` : undefined }}
+            <div className="flex gap-3 overflow-x-auto no-scrollbar">
+              {active.images.map((src, i) => (
+                <button
+                  key={src}
+                  onClick={() => setImgIdx(i)}
+                  className={`relative h-14 w-20 md:h-16 md:w-24 rounded-lg overflow-hidden border
+                    ${i === imgIdx ? "border-black/60" : "border-black/10"}`}
+                  aria-label={`Imagem ${i + 1}`}
                 >
-                  <div className="md:max-h-[var(--panelH)] md:overflow-y-auto md:min-h-0">
-                    <div className="mb-2 text-xs uppercase tracking-wide text-gray-500">
-                      {active.tag}
-                    </div>
+                  <Image src={src} alt="" fill className="object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
 
-                    <h3 className="text-2xl sm:text-3xl font-extrabold">{active.title}</h3>
-                    <p className="mt-3 text-gray-700 leading-relaxed">{active.description}</p>
-
-                    {active.tech && (
-                      <ul className="mt-4 flex flex-wrap gap-2">
-                        {active.tech.map((t) => (
-                          <li key={t} className="text-xs rounded-full border border-black/10 px-3 py-1 bg-white/80">
-                            {t}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-
-                    {active.academic ? (
-                      <div className="mt-6 flex items-center gap-2">
-                        <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold bg-black text-white">
-                          <GraduationCap className="h-4 w-4" />
-                          Academic Project
-                        </span>
-                        {active.repo && (
-                          <a href={active.repo} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full px-2 py-1" aria-label="Open GitHub repository">
-                            <Image src="/icons/github.png" alt="" width={22} height={22} className="opacity-80" />
-                          </a>
-                        )}
-                      </div>
-                    ) : active.link ? (
-                      <div className="mt-6 mb-16">
-                        <a href={active.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-full px-4 py-2 bg-black text-white hover:bg-black/90">
-                          Visit project
-                        </a>
-                      </div>
-                    ) : null}
-
-                    {active.contributors?.length ? (
-                      <div className="mt-4">
-                        <h4 className="text-xs uppercase tracking-wide text-gray-500 mb-2">Contributors</h4>
-                        <ul className="flex flex-wrap gap-2">
-                          {active.contributors.map((c) => (
-                            <li key={c.url}>
-                              <a href={c.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-black/10 px-3 py-1 bg-white/80 hover:bg-white">
-                                <Image src="/icons/linkedin.png" alt="" width={14} height={14} aria-hidden="true" />
-                                <span className="text-xs font-medium">{c.name}</span>
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ) : null}
-
-                    <div className="h-2 shrink-0" /> {/* respiro no fim */}
-                  </div>
-                </div>
+          {/* texto direita */}
+          <div
+            className="flex flex-col md:pr-1 md:[scrollbar-gutter:stable]"
+            style={{ ["--panelH" as any]: leftColH ? `${leftColH}px` : undefined }}
+          >
+            <div className="md:max-h-[var(--panelH)] md:overflow-y-auto md:min-h-0">
+              <div className="mb-2 text-xs uppercase tracking-wide text-gray-500">
+                {active.tag}
               </div>
 
-              {/* navegação de imagens */}
-              {active.images.length > 1 && (
-                <div className="mt-4 flex items-center justify-between">
-                  <button
-                    onClick={() =>
-                      setImgIdx((i) => (i - 1 + active.images.length) % active.images.length)
-                    }
-                    className="rounded-full p-2 border border-black/10 bg-white hover:bg-white/90"
-                  >
-                    <ChevronLeft />
-                  </button>
-                  <div className="text-xs text-gray-500">
-                    {imgIdx + 1} / {active.images.length}
-                  </div>
-                  <button
-                    onClick={() => setImgIdx((i) => (i + 1) % active.images.length)}
-                    className="rounded-full p-2 border border-black/10 bg-white hover:bg-white/90"
-                  >
-                    <ChevronRight />
-                  </button>
-                </div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold">{active.title}</h3>
+              <p className="mt-3 text-gray-700 leading-relaxed">{active.description}</p>
+
+              {active.tech && (
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {active.tech.map((t) => (
+                    <li key={t} className="text-xs rounded-full border border-black/10 px-3 py-1 bg-white/80">
+                      {t}
+                    </li>
+                  ))}
+                </ul>
               )}
+
+              {active.academic ? (
+                <div className="mt-6 flex items-center gap-2">
+                  <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold bg-black text-white">
+                    <GraduationCap className="h-4 w-4" />
+                    Academic Project
+                  </span>
+                  {active.repo && (
+                    <a href={active.repo} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full px-2 py-1" aria-label="Open GitHub repository">
+                      <Image src="/icons/github.png" alt="" width={22} height={22} className="opacity-80" />
+                    </a>
+                  )}
+                </div>
+              ) : active.link ? (
+                <div className="mt-6 mb-16">
+                  <a href={active.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-full px-4 py-2 bg-black text-white hover:bg-black/90">
+                    Visit project
+                  </a>
+                </div>
+              ) : null}
+
+              {active.contributors?.length ? (
+                <div className="mt-4">
+                  <h4 className="text-xs uppercase tracking-wide text-gray-500 mb-2">Contributors</h4>
+                  <ul className="flex flex-wrap gap-2">
+                    {active.contributors.map((c) => (
+                      <li key={c.url}>
+                        <a href={c.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-black/10 px-3 py-1 bg-white/80 hover:bg-white">
+                          <Image src="/icons/linkedin.png" alt="" width={14} height={14} aria-hidden="true" />
+                          <span className="text-xs font-medium">{c.name}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+
+              <div className="h-2 shrink-0" />
             </div>
           </div>
         </div>
-      )}
+
+        {/* navegação de imagens */}
+        {active.images.length > 1 && (
+          <div className="mt-4 flex items-center justify-between">
+            <button
+              onClick={() => setImgIdx((i) => (i - 1 + active.images.length) % active.images.length)}
+              className="rounded-full p-2 border border-black/10 bg-white hover:bg-white/90"
+            >
+              <ChevronLeft />
+            </button>
+            <div className="text-xs text-gray-500">
+              {imgIdx + 1} / {active.images.length}
+            </div>
+            <button
+              onClick={() => setImgIdx((i) => (i + 1) % active.images.length)}
+              className="rounded-full p-2 border border-black/10 bg-white hover:bg-white/90"
+            >
+              <ChevronRight />
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+)}
+
     </section>
   );
 }

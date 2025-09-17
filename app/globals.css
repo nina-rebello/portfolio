@@ -30,3 +30,27 @@ html,body{background:var(--bg); color:var(--ink);}
 .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
 
 html{ scroll-behavior:smooth }
+
+
+/* ===== Mobile polish global ===== */
+html, body { overflow-x: hidden; }
+* { min-width: 0; } /* impede que grids/children estourem na horizontal */
+img, svg, video, canvas { display:block; max-width:100%; height:auto; }
+
+:root{
+  /* tamanhos fluidos de texto pro mobile */
+  --step-1: clamp(1.75rem, 4.5vw, 2.25rem);  /* h1 menor (Hero) */
+  --step-2: clamp(1.5rem, 3.8vw, 2rem);      /* h2 */
+  --step-3: clamp(1.125rem, 2.8vw, 1.25rem); /* parágrafos maiores */
+}
+
+/* container mais estreito no mobile para respirar */
+.container-hero{
+  max-width:1100px;
+  margin-inline:auto;
+  padding-inline:clamp(14px, 4vw, 28px);
+}
+
+/* evita que gradientes absolutos causem overflow no mobile */
+.overflow-clip { overflow: clip; } /* suporta iOS 17+; fallback é hidden */
+@supports not (overflow: clip) { .overflow-clip { overflow: hidden; } }

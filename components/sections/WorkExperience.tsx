@@ -88,74 +88,79 @@ export default function WorkExperience() {
           />
 
           {/* linhas/itens */}
-          <div className="space-y-12">
-            {ITEMS.map((it, idx) => {
-              const active = seen[idx];
-              return (
-                <div
-                  key={it.company + idx}
-                  ref={(el) => {
-                    rowsRef.current[idx] = el;
-                  }}
-                  data-index={idx}
-                  className={`grid gap-6 items-start grid-cols-1 sm:[grid-template-columns:1fr_64px_1fr]`}
+<div className="space-y-12">
+  {ITEMS.map((it, idx) => {
+    const active = seen[idx];
+    return (
+      <div
+        key={it.company + idx}
+        ref={(el) => { rowsRef.current[idx] = el; }}
+        data-index={idx}
+        className="grid gap-6 items-start grid-cols-1 sm:[grid-template-columns:1fr_64px_1fr]"
+      >
+        {/* ===== MOBILE: card compacto (empresa + role + período juntos) ===== */}
+        <div
+          className={`sm:hidden rounded-2xl border border-slate-200 bg-white/70 backdrop-blur p-4
+                      transition-all duration-700
+                      ${active ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+          style={{ transitionDelay: `${idx * 120}ms` }}
+        >
+          <h3 className="text-lg font-bold text-slate-900">
+            <span>{it.company}</span>
+            <span className="mx-2 text-slate-400">•</span>
+            <span className="font-semibold text-slate-800">{it.role}</span>
+          </h3>
+          <p className="mt-1 text-sm text-slate-500">{it.period}</p>
 
-                >
-                  {/* ESQUERDA: company + period */}
-                  <div
-                    className={`transition-all duration-700
-                                ${active ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6"}`}
-                    style={{ transitionDelay: `${idx * 120}ms` }}
-                  >
-                    <h3 className="text-xl sm:text-2xl font-extrabold text-slate-800">
-                      {it.company}
-                    </h3>
-                    <p className="mt-1 text-slate-500">{it.period}</p>
-                  </div>
+          {it.description && (
+            <p className="mt-2 text-slate-600 leading-relaxed">{it.description}</p>
+          )}
+        </div>
 
-                  {/* PONTO CENTRAL */}
-                  <div className="relative flex items-center justify-center h-12 sm:h-12">
-                    <span
-                      className={`relative inline-flex h-10 w-10 items-center justify-center
-                                  transition-transform duration-500
-                                  mx-auto
-                                  ${active ? "scale-100" : "scale-75"}`}
-                      style={{ transitionDelay: `${220 + idx * 120}ms` }}
-                    >
-                      {/* aro tracejado externo */}
-                      <span className="absolute inset-0 rounded-full border-2 border-dashed border-slate-400" />
-                      {/* pulso */}
-                      <span
-                        className={`absolute inset-0 rounded-full ${
-                          active ? "animate-[pulseRing_1.6s_ease-out_1]" : ""
-                        }`}
-                        style={{ animationDelay: `${260 + idx * 120}ms` }}
-                      />
-                      {/* círculo preenchido */}
-                      <span
-                        className={`inline-block h-6 w-6 rounded-full shadow
-                                    ${idx === 1 ? "bg-slate-900" : "bg-[var(--brand)]"}`}
-                      />
-                    </span>
-                  </div>
+        {/* ===== DESKTOP (sm+): layout original com linha central ===== */}
+        {/* ESQUERDA: company + period */}
+        <div
+          className={`hidden sm:block transition-all duration-700
+                      ${active ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6"}`}
+          style={{ transitionDelay: `${idx * 120}ms` }}
+        >
+          <h3 className="text-2xl font-extrabold text-slate-800">{it.company}</h3>
+          <p className="mt-1 text-slate-500">{it.period}</p>
+        </div>
 
-                  {/* DIREITA: role + description */}
-                  <div
-                    className={`transition-all duration-700 sm:text-right
-                                ${active ? "opacity-100 translate-x-0" : "opacity-0 translate-x-6"}`}
-                    style={{ transitionDelay: `${180 + idx * 120}ms` }}
-                  >
-                    <h3 className="text-xl sm:text-2xl font-extrabold text-slate-800">
-                      {it.role}
-                    </h3>
-                    {it.description && (
-                      <p className="mt-2 text-slate-500 leading-relaxed">{it.description}</p>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+        {/* PONTO CENTRAL */}
+        <div className="hidden sm:flex items-center justify-center h-12">
+          <span
+            className={`relative inline-flex h-10 w-10 items-center justify-center
+                        transition-transform duration-500
+                        ${active ? "scale-100" : "scale-75"}`}
+            style={{ transitionDelay: `${220 + idx * 120}ms` }}
+          >
+            <span className="absolute inset-0 rounded-full border-2 border-dashed border-slate-400" />
+            <span
+              className={`absolute inset-0 rounded-full ${active ? "animate-[pulseRing_1.6s_ease-out_1]" : ""}`}
+              style={{ animationDelay: `${260 + idx * 120}ms` }}
+            />
+            <span className={`inline-block h-6 w-6 rounded-full shadow ${idx === 1 ? "bg-slate-900" : "bg-[var(--brand)]"}`} />
+          </span>
+        </div>
+
+        {/* DIREITA: role + description */}
+        <div
+          className={`hidden sm:block transition-all duration-700 sm:text-right
+                      ${active ? "opacity-100 translate-x-0" : "opacity-0 translate-x-6"}`}
+          style={{ transitionDelay: `${180 + idx * 120}ms` }}
+        >
+          <h3 className="text-2xl font-extrabold text-slate-800">{it.role}</h3>
+          {it.description && (
+            <p className="mt-2 text-slate-500 leading-relaxed">{it.description}</p>
+          )}
+        </div>
+      </div>
+    );
+  })}
+</div>
+
         </div>
       </div>
 

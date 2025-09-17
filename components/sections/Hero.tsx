@@ -117,9 +117,9 @@ export default function Hero() {
             initial={{ scale: 0.8, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 180, damping: 20, delay: 1 }}
-            className="flex md:justify-end"
+            className="flex justify-center md:justify-end lg:justify-end"
           >
-            <div className="text-right">
+            <div className="text-center md:text-right lg:text-right">
               <div className="flex justify-end gap-1 mb-2" aria-label="5 out of 5 stars">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star
