@@ -73,10 +73,20 @@ export default function Services() {
               <h3 className="font-semibold text-2xl mb-3">{s.title}</h3>
               <p className="text-gray-600 text-sm leading-relaxed">{s.desc}</p>
               {s.title === "Web Design" && (
-                <p className="mt-4 text-xs text-gray-500">
-                  In partnership with Luana Rebello
-                </p>
-              )}
+              <p className="mt-4 text-xs text-gray-500">
+                In partnership with{" "}
+                <a
+                  href="https://www.linkedin.com/in/luana-rebello/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-500 underline"
+                >
+                  Luana Rebello
+                </a>
+              </p>
+            )}
+
+
             </div>
           </div>
         ))}
