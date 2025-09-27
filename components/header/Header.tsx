@@ -22,7 +22,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="sticky top-7 z-50">
+    <header className="fixed inset-x-0 top-7 z-50">
       <div className="container-hero">
         <div
           className="glass flex items-center justify-between rounded-[32px] px-4 sm:px-6 py-1.5"

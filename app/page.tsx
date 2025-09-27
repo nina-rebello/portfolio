@@ -3,6 +3,7 @@ import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 import AboutMe from "@/components/sections/About";
 import Hero from "@/components/sections/Hero";
+import LanguageSwitcher from "@/components/sections/LanguageSwitcher";
 import Projects from "@/components/sections/Projects";
 import Services from "@/components/sections/Services";
 import Testimonials from "@/components/sections/Testimonials";
@@ -12,6 +13,7 @@ export default function HomePage() {
   return (
     <>
       <Header />
+      <LanguageSwitcher />
       <main>
         <Hero />
         <AboutMe />
