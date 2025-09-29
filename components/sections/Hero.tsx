@@ -1,6 +1,7 @@
 "use client";
 import { Quote, Star } from "lucide-react";
 import { motion } from "framer-motion";
+import { useI18n } from "@/i18n/I18nProvider";
 
 const bubbleVariants = {
   hidden: { opacity: 0, y: 40, scale: 0.6, rotate: -5 },
@@ -9,15 +10,12 @@ const bubbleVariants = {
     y: 0,
     scale: 1,
     rotate: 0,
-    transition: {
-      type: "spring" as const,
-      stiffness: 220,
-      damping: 18,
-    },
+    transition: { type: "spring" as const, stiffness: 220, damping: 18 },
   },
 };
 
 function HelloBubble() {
+  const { t } = useI18n();
   return (
     <motion.div
       variants={bubbleVariants}
@@ -26,13 +24,22 @@ function HelloBubble() {
       className="inline-flex items-center gap-2"
     >
       <span className="inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold shadow-lg backdrop-blur">
-        Hello!
+        {t("hero.hello")}
       </span>
     </motion.div>
   );
 }
 
 export default function Hero() {
+  const { t, lang } = useI18n();
+  const years = 2;
+
+  // mantém duas linhas de quote como no original:
+  const primaryQuote =
+    lang === "pt" ? t("hero.quote.pt") : t("hero.quote.en");
+  const secondaryQuote =
+    lang === "pt" ? t("hero.quote.en") : t("hero.quote.pt");
+
   return (
     <section className="pt-20 sm:pt-28 overflow-hidden">
       <div className="container-hero">
@@ -43,11 +50,7 @@ export default function Hero() {
           viewport={{ once: true }}
           variants={{
             hidden: {},
-            visible: {
-              transition: {
-                staggerChildren: 0.2,
-              },
-            },
+            visible: { transition: { staggerChildren: 0.2 } },
           }}
           className="text-center"
         >
@@ -67,7 +70,7 @@ export default function Hero() {
             }}
             className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight"
           >
-            I’m <span style={{ color: "var(--brand)" }}>Nina</span>,
+            {t("hero.im")} <span style={{ color: "var(--brand)" }}>Nina</span>,
           </motion.p>
 
           <motion.h1
@@ -81,7 +84,7 @@ export default function Hero() {
             }}
             className="mt-2 text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight"
           >
-            Website Developer
+            {t("hero.role")}
           </motion.h1>
         </motion.div>
 
@@ -103,12 +106,8 @@ export default function Hero() {
               <Quote className="text-[var(--brand)]" />
             </motion.div>
             <div>
-              <p className="font-semibold">
-                Crafting digital experiences and empowering brands through web development.
-              </p>
-              <p className="text-[var(--muted)]">
-                Criando experiências digitais e impulsionando marcas através do desenvolvimento web.
-              </p>
+              <p className="font-semibold">{primaryQuote}</p>
+              <p className="text-[var(--muted)]">{secondaryQuote}</p>
             </div>
           </div>
 
@@ -120,18 +119,18 @@ export default function Hero() {
             className="flex justify-center md:justify-end lg:justify-end"
           >
             <div className="text-center md:text-right lg:text-right">
-              <div className="flex justify-end gap-1 mb-2" aria-label="5 out of 5 stars">
+              <div
+                className="flex justify-end gap-1 mb-2"
+                aria-label={t("hero.stars_aria")}
+              >
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className="text-[var(--brand)]"
-                    fill="currentColor"
-                    size={22}
-                  />
+                  <Star key={i} className="text-[var(--brand)]" fill="currentColor" size={22} />
                 ))}
               </div>
-              <div className="text-3xl sm:text-4xl font-bold">2 Years</div>
-              <div className="text-[var(--muted)]">Experience</div>
+              <div className="text-3xl sm:text-4xl font-bold">
+                {years} {t("hero.years")}
+              </div>
+              <div className="text-[var(--muted)]">{t("hero.experience")}</div>
             </div>
           </motion.div>
         </motion.div>

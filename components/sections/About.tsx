@@ -1,7 +1,10 @@
 "use client";
 import { motion } from "framer-motion";
+import { useI18n } from "@/i18n/I18nProvider";
 
 export default function AboutMe() {
+  const { t } = useI18n();
+
   return (
     <section
       id="about"
@@ -15,13 +18,10 @@ export default function AboutMe() {
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <h2 className="text-3xl sm:text-4xl font-extrabold mb-6">
-          About Me
+          {t("about.title")}
         </h2>
         <p className="max-w-2xl mx-auto text-lg text-gray-300 leading-relaxed">
-          I’m a passionate website developer focused on building
-          clean, responsive, and user-friendly websites.
-          With strong attention to detail and a love for design,
-          I combine creativity with functionality.
+          {t("about.text")}
         </p>
       </motion.div>
     </section>

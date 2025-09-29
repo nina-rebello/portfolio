@@ -1,24 +1,16 @@
+"use client";
 import Image from "next/image";
+import { useI18n } from "@/i18n/I18nProvider";  
 
-const services = [
-  {
-    icon: "/icons/icons8-source-code-96.png",
-    title: "Software Development",
-    desc: "Custom applications built to solve real problems.",
-  },
-  {
-    icon: "/icons/icons8-internet-100.png",
-    title: "Web Development",
-    desc: "Modern, scalable and optimized websites.",
-  },
-  {
-    icon: "/icons/icons8-web-100.png",
-    title: "Web Design",
-    desc: "Clean, creative, and user-focused interfaces that bring ideas to life.",
-  },
-];
+const items = [
+  { id: "software", icon: "/icons/icons8-source-code-96.png" },
+  { id: "webdev",  icon: "/icons/icons8-internet-100.png" },
+  { id: "webdesign", icon: "/icons/icons8-web-100.png" },
+] as const;
 
 export default function Services() {
+  const { t } = useI18n();
+
   return (
     <section id="services" className="relative overflow-hidden scroll-mt-28">
       {/* === gradientes de fundo === */}
@@ -43,55 +35,59 @@ export default function Services() {
       {/* === faixa branca por cima dos gradientes === */}
       <div className="relative z-10 bg-white pt-20 pb-18 text-center">
         <div className="container-hero">
-          <h2 className="text-3xl sm:text-4xl font-extrabold mb-6">Services</h2>
+          <h2 className="text-3xl sm:text-4xl font-extrabold mb-6">
+            {t("services.title")}
+          </h2>
           <p className="max-w-3xl mx-auto text-gray-700">
-            Building digital experiences that are clear, modern, effective, and tailored to connect people with brands in meaningful ways.
+            {t("services.lead")}
           </p>
         </div>
-        {/* fade branco para transição suave */}
         <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-b from-white to-transparent" />
       </div>
 
       {/* === grid de cards === */}
-    <div className="relative z-10 container-hero py-16">
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((s) => (
-          <div
-            key={s.title}
-            className="rounded-2xl p-8 backdrop-blur-md bg-white/40 
-                      border border-black/10 shadow-[0_8px_24px_rgba(0,0,0,0.08)]
-                      transition hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)]"
-          >
-            <div className="flex flex-col items-start text-left">
-              <Image
-                src={s.icon}
-                alt={s.title}
-                width={50}
-                height={50}
-                className="mb-4 opacity-90"
-              />
-              <h3 className="font-semibold text-2xl mb-3">{s.title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{s.desc}</p>
-              {s.title === "Web Design" && (
-              <p className="mt-4 text-xs text-gray-500">
-                In partnership with{" "}
-                <a
-                  href="https://www.linkedin.com/in/luana-rebello/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-500 underline"
-                >
-                  Luana Rebello
-                </a>
-              </p>
-            )}
+      <div className="relative z-10 container-hero py-16">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((s) => (
+            <div
+              key={s.id}
+              className="rounded-2xl p-8 backdrop-blur-md bg-white/40 
+                         border border-black/10 shadow-[0_8px_24px_rgba(0,0,0,0.08)]
+                         transition hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)]"
+            >
+              <div className="flex flex-col items-start text-left">
+                <Image
+                  src={s.icon}
+                  alt={t(`services.${s.id}.title`)}
+                  width={50}
+                  height={50}
+                  className="mb-4 opacity-90"
+                />
+                <h3 className="font-semibold text-2xl mb-3">
+                  {t(`services.${s.id}.title`)}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {t(`services.${s.id}.desc`)}
+                </p>
 
-
+                {s.id === "webdesign" && (
+                  <p className="mt-4 text-xs text-gray-500">
+                    {t("services.webdesign.partner")}{" "}
+                    <a
+                      href="https://www.linkedin.com/in/luana-rebello/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 underline"
+                    >
+                      Luana Rebello
+                    </a>
+                  </p>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
     </section>
   );
 }

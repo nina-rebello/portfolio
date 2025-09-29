@@ -14,7 +14,7 @@ export default function HomePage() {
     <>
       <Header />
       <LanguageSwitcher />
-      <main>
+      <main className="pt-10 sm:pt-12 md:pt-12">
         <Hero />
         <AboutMe />
         <Services />

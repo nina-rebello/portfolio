@@ -3,43 +3,61 @@
 import { useEffect, useRef, useState, useMemo } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useI18n } from "@/i18n/I18nProvider";
+
+type L = { pt: string; en: string };
 
 type Testimonial = {
   id: string;
   name: string;
-  role: string;
+  role: L;
   avatar: string;
   rating: number;
-  text: string;
+  text: L;
 };
 
 const DATA: Testimonial[] = [
   {
     id: "t1",
     name: "Bianca Rodrigues",
-    role: "Desenvolvedora de Software, The Walt Disney Company",
+    role: {
+      pt: "Desenvolvedora de Software, The Walt Disney Company",
+      en: "Software Developer, The Walt Disney Company",
+    },
     avatar: "/avatars/bianca.jpeg",
     rating: 5,
-    text:
-      "Trabalhar com a Nina na área de engenharia da Disney tem sido uma experiência gratificante. Supervisionando alguns projetos dela, posso afirmar com confiança que ela é uma aprendiz excepcional. Ela se destaca por sua capacidade de aprender rapidamente, seu empenho nos estudos e sua criatividade notável. Além disso, ela é extremamente organizada e colabora de maneira exemplar com a equipe, contribuindo significativamente para o sucesso dos projetos. Sua qualidade técnica é complementada por seu bom humor contagiante, que torna o ambiente de trabalho mais agradável e produtivo.",
+    text: {
+      pt: "Trabalhar com a Nina na área de engenharia da Disney tem sido uma experiência gratificante. Supervisionando alguns projetos dela, posso afirmar com confiança que ela é uma aprendiz excepcional. Ela se destaca por sua capacidade de aprender rapidamente, seu empenho nos estudos e sua criatividade notável. Além disso, ela é extremamente organizada e colabora de maneira exemplar com a equipe, contribuindo significativamente para o sucesso dos projetos. Sua qualidade técnica é complementada por seu bom humor contagiante, que torna o ambiente de trabalho mais agradável e produtivo.",
+      en: "Working with Nina on Disney’s engineering team has been rewarding. Overseeing some of her projects, I can confidently say she’s an exceptional learner—quick to grasp concepts, dedicated to study, and notably creative. She’s extremely organized and collaborates exemplarily with the team, contributing meaningfully to project success. Her technical quality is complemented by contagious good humor that makes the workplace more pleasant and productive.",
+    },
   },
   {
     id: "t2",
     name: "Abolfazl Shirkavand",
-    role: "Head of Digital Innovation, Snoonu",
+    role: {
+      pt: "Head de Inovação Digital, Snoonu",
+      en: "Head of Digital Innovation, Snoonu",
+    },
     avatar: "/avatars/Abosh.jpeg",
     rating: 5,
-    text:
-      "I managed Nina at the very start of her career. Although she was young and without much experience, she showed great potential and a naturally bright, curious mind. She was disciplined, organized, and eager to learn; always listening carefully and applying feedback well.\nNina also had a strong creative sense, with good taste in design, ideation, and UI/UX. While she was still developing her professional skills, her attitude, openness, and creativity made her stand out. I believe she has the foundation to grow into an excellent professional in her field.",
+    text: {
+      pt: "Gerenciei a Nina no início da carreira. Apesar de jovem e com pouca experiência, ela demonstrou grande potencial e uma mente naturalmente curiosa. Disciplinada, organizada e com muita vontade de aprender; sempre ouvindo com atenção e aplicando feedback. A Nina também tem forte senso criativo, com bom gosto em design, ideação e UI/UX. Embora ainda estivesse desenvolvendo habilidades profissionais, sua atitude, abertura e criatividade a destacaram. Acredito que ela tem base sólida para se tornar uma excelente profissional.",
+      en: "I managed Nina at the very start of her career. Although young and not very experienced, she showed strong potential and a naturally bright, curious mind. She was disciplined, organized, and eager to learn—listening carefully and applying feedback well. Nina also had a strong creative sense with good taste in design, ideation, and UI/UX. While still developing professionally, her attitude, openness, and creativity made her stand out. She has the foundation to grow into an excellent professional.",
+    },
   },
   {
     id: "t3",
     name: "Carol Ghorayeb",
-    role: "Central Planning & Readiness Senior Manager, Supreme Committee",
+    role: {
+      pt: "Central Planning & Readiness Senior Manager, Supreme Committee",
+      en: "Central Planning & Readiness Senior Manager, Supreme Committee",
+    },
     avatar: "/avatars/Carol.jpeg",
     rating: 5,
-    text:
-      "A Nina desenvolveu o website da minha empresa e entregou um trabalho perfeito. Desde a primeira reunião para entender o escopo, passando por desenvolvimento, testes e ajustes até a entrega final, ela foi sempre muito atenciosa e acertiva, além de paciente com as mudanças de última hora. O trabalho ficou lindo, e entregue no prazo e no budget. Obrigada Nina!",
+    text: {
+      pt: "A Nina desenvolveu o website da minha empresa e entregou um trabalho perfeito. Desde a primeira reunião para entender o escopo, passando por desenvolvimento, testes e ajustes até a entrega final, ela foi sempre muito atenciosa e assertiva, além de paciente com as mudanças de última hora. O trabalho ficou lindo, entregue no prazo e dentro do budget. Obrigada, Nina!",
+      en: "Nina built my company’s website and delivered a perfect job. From the first scoping meeting through development, testing, tweaks, and delivery, she was attentive and precise—and patient with last-minute changes. The result was beautiful, on time, and on budget. Thank you, Nina!",
+    },
   },
 ];
 
@@ -48,7 +66,7 @@ function Stars({ value }: { value: number }) {
   const half = value - full >= 0.5;
   const empty = 5 - full - (half ? 1 : 0);
   return (
-    <div className="flex items-center gap-1" aria-label={`${value.toFixed(1)} de 5 estrelas`}>
+    <div className="flex items-center gap-1" aria-label={`${value.toFixed(1)}`}>
       {Array.from({ length: full }).map((_, i) => (
         <svg key={"f" + i} viewBox="0 0 20 20" className="h-5 w-5" aria-hidden>
           <path d="M10 1.6l2.47 5.01 5.53.8-4 3.9.94 5.5L10 14.9 5.06 16.8 6 11.3l-4-3.9 5.53-.8L10 1.6z" fill="#ff8c32" />
@@ -76,6 +94,8 @@ function Stars({ value }: { value: number }) {
 }
 
 export default function Testimonials() {
+  const { t, lang } = useI18n();
+
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [active, setActive] = useState(0);
 
@@ -138,7 +158,7 @@ export default function Testimonials() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="text-2xl sm:text-4xl font-extrabold tracking-tight"
           >
-            Testimonials That
+            {t("testi.titleLine1")}
           </motion.h2>
           <motion.h3
             initial={heading.h3.initial}
@@ -147,7 +167,8 @@ export default function Testimonials() {
             transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
             className="mt-1 text-2xl sm:text-4xl font-bold tracking-tight"
           >
-            Speak to <span style={{ color: "var(--brand)" }}>My Results</span>
+            {t("testi.titleLine2a")}{" "}
+            <span style={{ color: "var(--brand)" }}>{t("testi.titleLine2b")}</span>
           </motion.h3>
           <motion.p
             initial={heading.p.initial}
@@ -156,7 +177,7 @@ export default function Testimonials() {
             transition={{ duration: 0.5, delay: 0.15 }}
             className="mx-auto mt-4 max-w-2xl text-slate-600 text-sm sm:text-base"
           >
-            A small sample of recent collaborations—performance, accessibility, and maintainable code front and center.
+            {t("testi.lead")}
           </motion.p>
         </div>
 
@@ -164,16 +185,12 @@ export default function Testimonials() {
           <div
             ref={trackRef}
             className="no-scrollbar relative flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory px-2 -mx-2 sm:px-4 sm:-mx-4 py-1 scroll-smooth [scrollbar-width:none] [overscroll-behavior-x:contain]"
-            style={{
-              WebkitOverflowScrolling: "touch",
-              scrollPaddingLeft: "1rem",
-              scrollPaddingRight: "1rem",
-            }}
-            aria-label="Depoimentos"
+            style={{ WebkitOverflowScrolling: "touch", scrollPaddingLeft: "1rem", scrollPaddingRight: "1rem" }}
+            aria-label={t("testi.carouselAria")}
           >
-            {DATA.map((t, i) => (
+            {DATA.map((tst, i) => (
               <motion.div
-                key={t.id}
+                key={tst.id}
                 data-card="t"
                 initial={{ opacity: 0, y: 18, scale: 0.98 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -183,34 +200,29 @@ export default function Testimonials() {
               >
                 <div className="pointer-events-none absolute right-5 top-5 opacity-30">
                   <svg viewBox="0 0 60 60" className="h-10 w-10 animate-quote">
-                    <path
-                      d="M18 12h10v12H18v12h10v12H6V36c0-6 2-12 6-18 4-6 10-6 12-6zm26 0h10v12H44v12h10v12H32V36c0-6 2-12 6-18 4-6 10-6 12-6z"
-                      fill="#cbd5e1"
-                    />
+                    <path d="M18 12h10v12H18v12h10v12H6V36c0-6 2-12 6-18 4-6 10-6 12-6zm26 0h10v12H44v12h10v12H32V36c0-6 2-12 6-18 4-6 10-6 12-6z" fill="#cbd5e1" />
                   </svg>
                 </div>
                 <div className="p-5 sm:p-6">
-                {/* header */}
-                <div className="flex items-center gap-3">
-                  <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-slate-200 shrink-0">
-                    {/* usa fill + object-cover para nunca achatar */}
-                    <Image src={t.avatar} alt={t.name} fill className="object-cover" />
+                  {/* header */}
+                  <div className="flex items-center gap-3">
+                    <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-slate-200 shrink-0">
+                      <Image src={tst.avatar} alt={tst.name} fill className="object-cover" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="font-semibold text-slate-900 text-sm sm:text-base">{tst.name}</div>
+                      <div className="text-[11px] sm:text-xs text-slate-500">{tst.role[lang]}</div>
+                    </div>
                   </div>
 
-                  {/* permite que o texto quebre sem empurrar o avatar */}
-                  <div className="min-w-0">
-                    <div className="font-semibold text-slate-900 text-sm sm:text-base">
-                      {t.name}
-                    </div>
-                    <div className="text-[11px] sm:text-xs text-slate-500">
-                      {t.role}
-                    </div>
-                  </div>
-                </div>
                   <div className="mt-3">
-                    <Stars value={t.rating} />
+                    {/* nota já é numérica e internacionalmente legível */}
+                    <Stars value={tst.rating} />
                   </div>
-                  <p className="mt-3 text-[13px] sm:text-sm leading-relaxed text-slate-700 whitespace-pre-line">{t.text}</p>
+
+                  <p className="mt-3 text-[13px] sm:text-sm leading-relaxed text-slate-700 whitespace-pre-line">
+                    {tst.text[lang]}
+                  </p>
                 </div>
               </motion.div>
             ))}
@@ -220,14 +232,12 @@ export default function Testimonials() {
             {DATA.map((_, i) => (
               <button
                 key={i}
-                aria-label={`Ir para depoimento ${i + 1}`}
+                aria-label={`${t("testi.goto")} ${i + 1}`}
                 onClick={() => {
                   const el = trackRef.current?.querySelectorAll<HTMLDivElement>('[data-card="t"]')[i];
                   el?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
                 }}
-                className={`h-2.5 w-2.5 rounded-full transition ${
-                  i === active ? "bg-slate-900" : "bg-slate-300"
-                }`}
+                className={`h-2.5 w-2.5 rounded-full transition ${i === active ? "bg-slate-900" : "bg-slate-300"}`}
               />
             ))}
           </div>
