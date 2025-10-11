@@ -9,7 +9,7 @@ const ninaFont = Fraunces({
   variable: "--font-nina",
 });
 
-export const metadata = { title: "Site da Nina" };
+export const metadata = { title: "Nina Rebello" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

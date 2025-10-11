@@ -1,12 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 
-type Item = { key: string; href: string };
+type Lang = "pt" | "en";
+type I18nCtx = { lang: Lang; setLang: (l: Lang) => void; t: (key: string) => string };
+const useI18nCtx = () => useI18n() as unknown as I18nCtx;
 
+type Item = { key: string; href: string };
 const NAV: Item[] = [
   { key: "nav.about", href: "#about" },
   { key: "nav.services", href: "#services" },
@@ -14,30 +17,29 @@ const NAV: Item[] = [
   { key: "nav.contact", href: "#contact" },
 ];
 
-// --- MOBILE-ONLY language button (pequeno, ao lado do menu)
 function MobileLangButton() {
-  const { lang, setLang } = useI18n() as any;
+  const { lang, setLang } = useI18nCtx();
   const isPt = lang === "pt";
   const next = isPt ? "en" : "pt";
   const label = isPt ? "Mudar para inglês" : "Switch to Portuguese";
+  const onToggle = useCallback(() => setLang(next), [setLang, next]);
+
   return (
     <button
       aria-label={label}
       className="md:hidden p-2 rounded-xl hover:bg-black/5 active:scale-[0.98] transition"
-      onClick={() => setLang?.(next)}
+      onClick={onToggle}
+      type="button"
     >
-      <span className="text-xl leading-none select-none">
-        {isPt ? "🇧🇷" : "🇺🇸"}
-      </span>
+      <span className="text-xl leading-none select-none">{isPt ? "🇧🇷" : "🇺🇸"}</span>
     </button>
   );
 }
 
 export default function Header() {
-  const { t, lang } = useI18n();
+  const { t, lang } = useI18nCtx();
   const [open, setOpen] = useState(false);
 
-  // fecha o menu ao rolar / trocar hash
   useEffect(() => {
     const close = () => setOpen(false);
     window.addEventListener("scroll", close, { passive: true });
@@ -48,24 +50,6 @@ export default function Header() {
     };
   }, []);
 
-  // 🔒 Esconde QUALQUER switcher antigo SÓ no mobile (classes/id comuns)
-  useEffect(() => {
-    const apply = () => {
-      const isMobile = window.matchMedia("(max-width: 767px)").matches;
-      const nodes = document.querySelectorAll(
-        ".language-switcher, [data-language-switcher], [data-lang-switcher], #language-switcher"
-      );
-      nodes.forEach((el) => {
-        if (isMobile) el.classList.add("hidden");
-        else el.classList.remove("hidden");
-      });
-    };
-    apply();
-    window.addEventListener("resize", apply);
-    return () => window.removeEventListener("resize", apply);
-  }, []);
-
-  // mensagem do WhatsApp no idioma atual
   const waHref = useMemo(() => {
     const msgPt =
       "Olá, vi o seu portfólio e me interessei! Podemos conversar sobre um projeto?";
@@ -93,12 +77,10 @@ export default function Header() {
           role="navigation"
           aria-label={a11y.primaryNav}
         >
-          {/* logo / nome */}
           <Link href="/" className="font-bold tracking-tight text-xl sm:text-2xl">
             Nina
           </Link>
 
-          {/* desktop nav */}
           <nav className="hidden md:flex items-center gap-1">
             {NAV.map((i) => (
               <a key={i.href} href={i.href} className="nav-link">
@@ -107,20 +89,20 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* CTA (desktop) */}
           <div className="hidden md:block">
             <a href={waHref} target="_blank" rel="noreferrer" className="btn-pill">
               {a11y.cta}
             </a>
           </div>
 
-          {/* Ações à direita no MOBILE: linguagem + menu */}
+          {/* Só no header (mobile) */}
           <div className="flex items-center gap-1 md:hidden">
             <MobileLangButton />
             <button
               aria-label={open ? a11y.closeMenu : a11y.openMenu}
               className="p-2 rounded-xl hover:bg-black/5"
               onClick={() => setOpen((v) => !v)}
+              type="button"
             >
               {open ? <X /> : <Menu />}
             </button>
@@ -130,13 +112,7 @@ export default function Header() {
         {/* mobile sheet */}
         {open && (
           <div className="md:hidden mt-2 glass rounded-3xl p-3">
-            {/* Lingua também acessível dentro do sheet */}
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm/6 text-black/60 dark:text-white/60">
-                {lang === "pt" ? "Idioma" : "Language"}
-              </span>
-              <MobileLangButton />
-            </div>
+            {/* 🔕 Removido o bloco de Language dentro do menu */}
             <nav className="grid gap-1">
               {NAV.map((i) => (
                 <a

@@ -35,7 +35,7 @@ html{ scroll-behavior:smooth }
 /* ===== Mobile polish global ===== */
 html, body { overflow-x: hidden; }
 * { min-width: 0; } /* impede que grids/children estourem na horizontal */
-img, svg, video, canvas { display:block; max-width:100%; height:auto; }
+img, svg, video, canvas, Image { display:block; max-width:100%; height:auto; }
 
 :root{
   /* tamanhos fluidos de texto pro mobile */
@@ -54,3 +54,16 @@ img, svg, video, canvas { display:block; max-width:100%; height:auto; }
 /* evita que gradientes absolutos causem overflow no mobile */
 .overflow-clip { overflow: clip; } /* suporta iOS 17+; fallback é hidden */
 @supports not (overflow: clip) { .overflow-clip { overflow: hidden; } }
+
+/* Esconde QUALQUER switcher antigo somente no mobile */
+@media (max-width: 767px) {
+  .language-switcher,
+  [data-language-switcher],
+  [data-lang-switcher],
+  #language-switcher,
+  .lang-fab,
+  .lang-chip,
+  .language-fab {
+    display: none !important;
+  }
+}

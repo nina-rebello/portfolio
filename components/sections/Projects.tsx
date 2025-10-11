@@ -1,11 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { ChevronLeft, ChevronRight, GraduationCap, X } from "lucide-react";
-import { useI18n } from "@/i18n/I18nProvider";  // <- import corrigido
+import { useI18n } from "@/i18n/I18nProvider";
 
-// ⬇️ apenas o tipo muda aqui:
+// ==== Tipos leves para i18n (ajuste se tiver tipos oficiais) ====
+type Lang = "pt" | "en";
+type I18nCtx = {
+  lang: Lang;
+  t: (key: string) => string;
+};
+const useI18nCtx = () => useI18n() as unknown as I18nCtx;
+
 type Contributor = { name: string; url: string };
 type Project = {
   id: string;
@@ -13,7 +20,7 @@ type Project = {
   tag: string;
   cover: string;
   images: string[];
-  desc: { pt: string; en: string };   // <- antes era "description: string"
+  desc: { pt: string; en: string };
   tech?: string[];
   link?: string;
   academic?: boolean;
@@ -21,7 +28,6 @@ type Project = {
   repo?: string;
 };
 
-// ⬇️ o array agora tem desc.pt e desc.en para cada item
 const PROJECTS: Project[] = [
   {
     id: "1",
@@ -143,9 +149,8 @@ const PROJECTS: Project[] = [
   },
 ];
 
-
 export default function Projects() {
-  const { t, lang } = useI18n(); // ⬅️ i18n
+  const { t, lang } = useI18nCtx();
 
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<Project | null>(null);
@@ -189,6 +194,13 @@ export default function Projects() {
     setImgIdx(0);
     setOpen(true);
   };
+
+  // Tipagem segura para CSS var --panelH (sem `as any`)
+  type PanelVars = React.CSSProperties & { ["--panelH"]?: string };
+  const panelStyle = useMemo<PanelVars>(
+    () => ({ ["--panelH"]: leftColH ? `${leftColH}px` : undefined }),
+    [leftColH]
+  );
 
   return (
     <section id="projects" className="relative overflow-hidden pt-14 pb-14 scroll-mt-28">
@@ -260,6 +272,7 @@ export default function Projects() {
             aria-label={t("projects.prev")}
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2
                        rounded-full p-2 bg-white/85 backdrop-blur border border-black/10 hover:bg-white shadow"
+            type="button"
           >
             <ChevronLeft />
           </button>
@@ -268,6 +281,7 @@ export default function Projects() {
             aria-label={t("projects.next")}
             className="absolute right-4 top-1/2 -translate-y-1/2 translate-x-1/2
                        rounded-full p-2 bg-white/85 backdrop-blur border border-black/10 hover:bg-white shadow"
+            type="button"
           >
             <ChevronRight />
           </button>
@@ -307,6 +321,7 @@ export default function Projects() {
                   z-[60]
                   rounded-full p-3 bg-black/80 text-white hover:bg-black
                 "
+                type="button"
               >
                 <X size={22} />
               </button>
@@ -332,10 +347,9 @@ export default function Projects() {
                       <button
                         key={src}
                         onClick={() => setImgIdx(i)}
-                        className={`relative h-14 w-20 md:h-16 md:w-24 rounded-lg overflow-hidden border ${
-                          i === imgIdx ? "border-black/60" : "border-black/10"
-                        }`}
+                        className={`relative h-14 w-20 md:h-16 md:w-24 rounded-lg overflow-hidden border ${i === imgIdx ? "border-black/60" : "border-black/10"}`}
                         aria-label={`${t("projects.image")} ${i + 1}`}
+                        type="button"
                       >
                         <Image src={src} alt="" fill className="object-cover" />
                       </button>
@@ -346,7 +360,7 @@ export default function Projects() {
                 {/* texto */}
                 <div
                   className="flex flex-col md:pr-1 md:[scrollbar-gutter:stable]"
-                  style={{ ["--panelH" as any]: leftColH ? `${leftColH}px` : undefined }}
+                  style={panelStyle}
                 >
                   <div className="md:max-h-[var(--panelH)] md:overflow-y-auto md:min-h-0">
                     <div className="mb-2 text-xs uppercase tracking-wide text-gray-500">
@@ -431,6 +445,7 @@ export default function Projects() {
                     onClick={() => setImgIdx((i) => (i - 1 + active.images.length) % active.images.length)}
                     className="rounded-full p-2 border border-black/10 bg-white hover:bg-white/90"
                     aria-label={t("projects.prev")}
+                    type="button"
                   >
                     <ChevronLeft />
                   </button>
@@ -441,6 +456,7 @@ export default function Projects() {
                     onClick={() => setImgIdx((i) => (i + 1) % active.images.length)}
                     className="rounded-full p-2 border border-black/10 bg-white hover:bg-white/90"
                     aria-label={t("projects.next")}
+                    type="button"
                   >
                     <ChevronRight />
                   </button>
