@@ -74,7 +74,7 @@ export default function Services() {
                   <p className="mt-4 text-xs text-gray-500">
                     {t("services.webdesign.partner")}{" "}
                     <a
-                      href="https://www.linkedin.com/in/luana-rebello/"
+                      href="https://www.linkedin.com/in/luanarebello/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-gray-500 underline"
